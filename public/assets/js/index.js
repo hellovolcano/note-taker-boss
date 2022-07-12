@@ -26,23 +26,22 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () =>
-  fetch('/api/notes', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  fetch('/api/notes')
   .then(response => {
     if (!response.ok) {
       return alert('Error: ' + response.statusText)
       
     }
+
     return response.json()
-    .then(notes => {
-    console.log(notes)
-    alert("Testing that we're actually getting notes here")
   })
-})  
+//   .then(notesArr => {
+//   console.log("this is not executing?" + notesArr)
+//   alert("Testing that we're actually getting notes here")
+  
+//   return notesArr
+  
+// })  
 
 const saveNote = (note) =>
   fetch('/api/notes', {
@@ -129,7 +128,7 @@ const handleRenderSaveBtn = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
-  let jsonNotes = await notes.json();
+  let jsonNotes = await notes;
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }

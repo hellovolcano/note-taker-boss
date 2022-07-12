@@ -1,5 +1,8 @@
 const express = require('express')
+const path = require('path')
+const { PassThrough } = require('stream')
 const htmlRoutes = require('./routes/htmlRoutes')
+const apiRoutes = require('./routes/apiRoutes')
 
 const PORT = process.env.PORT || 3001
 const app = express()
@@ -13,7 +16,8 @@ app.use(express.json())
 // give access to the front-end assets
 app.use(express.static('public'))
 
-// html routes
+// api & html routes
+app.use('/api', apiRoutes)
 app.use('/', htmlRoutes)
 
 app.listen(PORT, () => {

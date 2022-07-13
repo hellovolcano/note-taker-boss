@@ -3,6 +3,7 @@ const path = require('path')
 const { PassThrough } = require('stream')
 const htmlRoutes = require('./routes/htmlRoutes')
 const apiRoutes = require('./routes/apiRoutes')
+const notes = require("./db/db.json")
 
 const PORT = process.env.PORT || 3001
 const app = express()
@@ -19,6 +20,10 @@ app.use(express.static('public'))
 // api & html routes
 app.use('/api', apiRoutes)
 app.use('/', htmlRoutes)
+
+// app.get('/api', (req, res) => {
+//     res.json(notes)
+//   })
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`)

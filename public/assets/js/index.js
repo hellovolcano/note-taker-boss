@@ -26,15 +26,21 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () =>
-  fetch('/api/notes')
+  fetch('/api/notes', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
   .then(response => {
     if (!response.ok) {
-      return alert('Error: ' + response.statusText)
+      return alert('Error: ' + response.statusText) 
       
     }
 
     return response.json()
   })
+  .then((data) => data)
 //   .then(notesArr => {
 //   console.log("this is not executing?" + notesArr)
 //   alert("Testing that we're actually getting notes here")
@@ -50,7 +56,17 @@ const saveNote = (note) =>
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(note),
-  });
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json()
+    }
+    alert("Error: " + response.statusText)
+  })
+  .then(postResponse => {
+    console.log(postResponse)
+    alert('Note saved!')
+  })
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {

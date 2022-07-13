@@ -1,12 +1,18 @@
-{
-    "notes": [
-        {
-            "title":"Test Title",
-            "text":"Test text"
-        },
-        {
-            "title":"Sample Note",
-            "text":"Street rat"
-        }
-    ]
-}
+[
+  {
+    "title": "Test Title",
+    "text": "Test text"
+  },
+  {
+    "title": "Sample Note",
+    "text": "Street rat"
+  },
+  {
+    "title": "A sample note",
+    "text": "A sample body"
+  },
+  {
+    "title": "Holy shit",
+    "text": "it works"
+  }
+]

@@ -4,6 +4,7 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
+
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -37,17 +38,11 @@ const getNotes = () =>
       return alert('Error: ' + response.statusText) 
       
     }
-
     return response.json()
   })
-  .then((data) => data)
-//   .then(notesArr => {
-//   console.log("this is not executing?" + notesArr)
-//   alert("Testing that we're actually getting notes here")
-  
-//   return notesArr
-  
-// })  
+  .then((data) => {
+    return data
+  })
 
 const saveNote = (note) =>
   fetch('/api/notes', {
@@ -57,16 +52,13 @@ const saveNote = (note) =>
     },
     body: JSON.stringify(note),
   })
-  .then(response => {
-    if (response.ok) {
-      return response.json()
+  .then(res => {
+    if (res.ok) {
+      return res.json()
     }
-    alert("Error: " + response.statusText)
+    alert("Error: " + res.statusText)
   })
-  .then(postResponse => {
-    console.log(postResponse)
-    alert('Note saved!')
-  })
+  .catch(error => console.log(error))
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -74,7 +66,8 @@ const deleteNote = (id) =>
     headers: {
       'Content-Type': 'application/json',
     },
-  });
+  })
+  .catch(error => console.log(error))
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
@@ -197,7 +190,7 @@ const renderNoteList = async (notes) => {
 };
 
 // Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then(renderNoteList);
+const getAndRenderNotes = () => getNotes().then(renderNoteList)
 
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
